@@ -230,6 +230,57 @@
             color: #495057;
             text-align: right;
         }
+        .guide-card{
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+
+    .guide-card h2{
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #212529;
+    }
+
+    .guide-grid{
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+        gap: 20px;
+    }
+
+    .guide-item{
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .guide-item span{
+        font-size: 24px;
+    }
+
+    .guide-item strong{
+        color: #212529;
+    }
+
+    .guide-item p{
+        margin-top: 5px;
+        color: var(--text-secondary);
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .guide-note{
+        margin-top: 20px;
+        padding: 15px;
+        background: #f8fafc;
+        border-radius: 10px;
+        color: #495057;
+        font-size: 14px;
+        border-left: 4px solid var(--primary);
+    }
 
         footer {
             text-align: center;
@@ -253,27 +304,71 @@
 
 <div class="container">
     <header>
-    <div class="header-content">
-        <span class="header-tag">MEDICINA • MULTIVIX</span>
+        <div class="header-content">
+            <span class="header-tag">MEDICINA • MULTIVIX</span>
 
-        <h1>Calculadora Acadêmica</h1>
+            <h1>Calculadora Acadêmica</h1>
 
-        <p>
-            Ferramenta desenvolvida para auxiliar estudantes de Medicina no
-            acompanhamento do desempenho acadêmico, permitindo simular médias,
-            calcular recuperações e acompanhar os eixos teóricos e práticos
-            durante todo o semestre.
-        </p>
+            <p>
+                Ferramenta desenvolvida para auxiliar estudantes de Medicina no
+                acompanhamento do desempenho acadêmico, permitindo simular médias,
+                calcular recuperações e acompanhar os eixos teóricos e práticos
+                durante todo o semestre.
+            </p>
 
-        <div class="header-info">
-            <span>MED01IA</span>
-            <span>•</span>
-            <a href="https://rafaelmachadoribeiro.github.io/Calculadora-Multivix/" target="_blank">
-                rafaelmachadoribeiro.github.io/Calculadora-Multivix
-            </a>
+            <div class="header-info">
+                <span>MED01IA</span>
+                <span>•</span>
+                <a href="https://rafaelmachadoribeiro.github.io/Calculadora-Multivix/" target="_blank">
+                    rafaelmachadoribeiro.github.io/Calculadora-Multivix
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="guide-card">
+        <h2>📖 Como utilizar</h2>
+
+        <div class="guide-grid">
+            <div class="guide-item">
+                <span>1️⃣</span>
+                <div>
+                    <strong>Digite suas notas do 1º bimestre</strong>
+                    <p>Preencha as notas já obtidas em cada disciplina.</p>
+                </div>
+            </div>
+
+            <div class="guide-item">
+                <span>2️⃣</span>
+                <div>
+                    <strong>Simule o 2º bimestre</strong>
+                    <p>Insira possíveis notas para visualizar diferentes cenários.</p>
+                </div>
+            </div>
+
+            <div class="guide-item">
+                <span>3️⃣</span>
+                <div>
+                    <strong>Acompanhe as médias</strong>
+                    <p>Veja automaticamente quanto falta para aprovação ou recuperação.</p>
+                </div>
+            </div>
+
+            <div class="guide-item">
+                <span>4️⃣</span>
+                <div>
+                    <strong>Verifique sua situação</strong>
+                    <p>Os indicadores mostram se você está aprovado, em recuperação ou reprovado.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="guide-note">
+            <strong>Regras da calculadora:</strong><br>
+            ✔ Aprovação direta: média ≥ 7,0<br>
+            ✔ Recuperação: (Média do eixo + Recuperação) ÷ 2 ≥ 6,0
         </div>
     </div>
-</header>
 
     <div class="settings-card">
         <div class="setting-group">
