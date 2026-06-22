@@ -331,11 +331,26 @@
             display: none;
         }
 
+        .pdf-report{
+            display: none;
+        }
+
         @media print {
+            @page{
+                size: A4 landscape;
+                margin: 8mm;
+            }
+
+            *{
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
             body{
                 background: #fff;
                 padding: 0;
                 display: block;
+                font-size: 10px;
             }
 
             .container{
@@ -347,65 +362,152 @@
             .guide-card,
             .settings-card,
             .export-card,
+            .subjects-grid,
+            .print-title,
             footer{
                 display: none !important;
             }
 
-            .print-title{
-                display: block;
-                text-align: center;
-                margin-bottom: 18px;
-                padding-bottom: 12px;
-                border-bottom: 2px solid #212529;
+            .pdf-report{
+                display: block !important;
+                width: 100%;
             }
 
-            .print-title h1{
-                font-size: 22px;
-                margin-bottom: 5px;
-            }
-
-            .print-title p{
-                font-size: 12px;
-                color: #555;
-            }
-
-            .subjects-grid{
-                gap: 12px;
-            }
-
-            .subject-card{
-                break-inside: avoid;
-                page-break-inside: avoid;
-                box-shadow: none;
-                border: 1px solid #d9dee3;
-                border-left: 5px solid #0a58ca;
+            .pdf-header{
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 18px;
+                padding: 12px 14px;
+                margin-bottom: 10px;
+                border: 1px solid #d7dde5;
                 border-radius: 10px;
-                padding: 14px;
+                background: #f8fafc;
             }
 
-            .track-row{
+            .pdf-kicker{
+                font-size: 9px;
+                font-weight: 800;
+                letter-spacing: 1.6px;
+                color: #0a58ca;
+            }
+
+            .pdf-header h1{
+                font-size: 18px;
+                margin: 3px 0 2px;
+                color: #111827;
+            }
+
+            .pdf-header p{
+                font-size: 10px;
+                color: #6b7280;
+                margin: 0;
+            }
+
+            .pdf-rules{
+                min-width: 245px;
+                display: grid;
+                gap: 2px;
+                font-size: 9.5px;
+                color: #374151;
                 background: #fff;
                 border: 1px solid #e5e7eb;
-                border-left: 3px solid #6c757d;
-                grid-template-columns: repeat(5, 1fr);
-                gap: 8px;
-                padding: 10px;
+                border-radius: 8px;
+                padding: 8px 10px;
             }
 
-            .input-block input{
-                border: none;
-                background: #f8fafc;
-                padding: 4px;
+            .pdf-rules strong{
+                color: #111827;
+                font-size: 10px;
             }
 
-            .status-badge{
-                border: 1px solid currentColor;
-                background: #fff !important;
+            .pdf-table{
+                width: 100%;
+                border-collapse: collapse;
+                table-layout: fixed;
+                font-size: 9.2px;
+                background: #fff;
             }
 
-            .final-score-badge{
+            .pdf-table th{
+                background: #0a58ca;
+                color: #fff;
                 text-align: left;
+                padding: 6px 6px;
+                border: 1px solid #0a58ca;
+                font-size: 8.8px;
+                text-transform: uppercase;
+                letter-spacing: .3px;
+            }
+
+            .pdf-table td{
+                border: 1px solid #d7dde5;
+                padding: 5px 6px;
+                vertical-align: middle;
+                color: #111827;
+                line-height: 1.2;
+                word-break: normal;
+            }
+
+            .pdf-table th:nth-child(1),
+            .pdf-table td:nth-child(1){ width: 28%; }
+            .pdf-table th:nth-child(2),
+            .pdf-table td:nth-child(2){ width: 10%; }
+            .pdf-table th:nth-child(3),
+            .pdf-table td:nth-child(3),
+            .pdf-table th:nth-child(4),
+            .pdf-table td:nth-child(4),
+            .pdf-table th:nth-child(5),
+            .pdf-table td:nth-child(5),
+            .pdf-table th:nth-child(6),
+            .pdf-table td:nth-child(6),
+            .pdf-table th:nth-child(7),
+            .pdf-table td:nth-child(7){ width: 9%; text-align: center; }
+            .pdf-table th:nth-child(8),
+            .pdf-table td:nth-child(8){ width: 17%; text-align: center; }
+
+            .pdf-table tr:nth-child(even) td{
+                background: #f9fafb;
+            }
+
+            .pdf-status{
+                display: inline-block;
+                padding: 3px 6px;
+                border-radius: 999px;
+                font-weight: 800;
+                font-size: 8.5px;
+                border: 1px solid #cbd5e1;
+                background: #fff;
+                color: #334155;
+            }
+
+            .pdf-status.aprovado{
+                color: #166534;
+                background: #dcfce7;
+                border-color: #86efac;
+            }
+
+            .pdf-status.recuperacao{
+                color: #854d0e;
+                background: #fef3c7;
+                border-color: #fde68a;
+            }
+
+            .pdf-status.reprovado{
+                color: #991b1b;
+                background: #fee2e2;
+                border-color: #fecaca;
+            }
+
+            .pdf-footer{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
                 margin-top: 8px;
+                padding-top: 6px;
+                border-top: 1px solid #d7dde5;
+                font-size: 9px;
+                color: #6b7280;
             }
         }
 
@@ -500,7 +602,7 @@
     <div class="settings-card">
         <div class="setting-group">
             <label>Média p/ Aprovação Direta:</label>
-            <span style="font-weight: 700; font-size: 16px; color: var(--success);">14 pontos no semestre (média 7)</span>
+            <span style="font-weight: 700; font-size: 16px; color: var(--success);">13,5 pontos no semestre (média 6,75)</span>
         </div>
         <div class="setting-group">
             <label>Regra Geral da Recuperação:</label>
@@ -513,8 +615,8 @@
         <div>
             <h2>📄 Exportar acompanhamento</h2>
             <p>
-                Após preencher suas notas, clique no botão para gerar um PDF bonito da tabela.
-                Na tela de impressão, escolha a opção <strong>Salvar como PDF</strong>.
+                Gere um relatório compacto, limpo e organizado em uma única página.
+                Na tela de impressão, escolha <strong>Salvar como PDF</strong>.
             </p>
         </div>
         <button class="export-btn" onclick="exportarPDF()">Exportar tabela em PDF</button>
@@ -524,6 +626,42 @@
         <h1>Calculadora Acadêmica - Medicina Multivix</h1>
         <p>Relatório de acompanhamento de notas • MED01IA • Desenvolvido por Rafael Machado</p>
     </div>
+
+    <section class="pdf-report" id="pdf-report">
+        <div class="pdf-header">
+            <div>
+                <span class="pdf-kicker">MEDICINA • MULTIVIX</span>
+                <h1>Relatório de Acompanhamento de Notas</h1>
+                <p>Calculadora Acadêmica • MED01IA</p>
+            </div>
+            <div class="pdf-rules">
+                <strong>Regras</strong>
+                <span>Aprovação direta: 13,5 pontos no semestre</span>
+                <span>Recuperação: (Média + Rec) ÷ 2 ≥ 6,0</span>
+            </div>
+        </div>
+
+        <table class="pdf-table">
+            <thead>
+                <tr>
+                    <th>Disciplina</th>
+                    <th>Eixo</th>
+                    <th>1ºB</th>
+                    <th>2ºB</th>
+                    <th>Precisa no 2ºB</th>
+                    <th>Média</th>
+                    <th>Rec.</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="pdf-report-body"></tbody>
+        </table>
+
+        <div class="pdf-footer">
+            <span>Gerado pela Calculadora Acadêmica</span>
+            <span>Desenvolvido por Rafael Machado ∴</span>
+        </div>
+    </section>
 
     <div class="subjects-grid" id="subjects-container">
         </div>
@@ -546,11 +684,11 @@
         { name: "Semiologia I - MED01IA", hasPratica: true, isSemio: true, b1_teo: "", b1_vhab: "", b1_prac: "" }
     ];
 
-    let subjects = JSON.parse(localStorage.getItem('med_subjects_v6')) || defaultSubjects;
+    let subjects = JSON.parse(localStorage.getItem('med_subjects_v8')) || defaultSubjects;
     const targetMedia = 6.75; // Aprovação direta: 13,5 pontos no semestre
 
     function saveToStorage() {
-        localStorage.setItem('med_subjects_v6', JSON.stringify(subjects));
+        localStorage.setItem('med_subjects_v8', JSON.stringify(subjects));
     }
 
     function renderSubjects() {
@@ -733,8 +871,89 @@
         calculateAll();
     }
 
-    function exportarPDF() {
+    function getText(id) {
+        const el = document.getElementById(id);
+        return el ? el.textContent.trim() || "-" : "-";
+    }
+
+    function getInputValue(id) {
+        const el = document.getElementById(id);
+        return el && el.value !== "" ? parseFloat(el.value).toFixed(2) : "-";
+    }
+
+    function formatSubjectName(name) {
+        return name.replace(" - MED01IA", "");
+    }
+
+    function getStatusClass(status) {
+        const s = (status || "").toLowerCase();
+        if (s.includes("aprov") || s === "ok") return "aprovado";
+        if (s.includes("reprov") || s === "rep") return "reprovado";
+        if (s.includes("rec")) return "recuperacao";
+        return "";
+    }
+
+    function buildPdfReport() {
         calculateAll();
+        const tbody = document.getElementById("pdf-report-body");
+        tbody.innerHTML = "";
+
+        subjects.forEach((subject, index) => {
+            const rows = [];
+            const subjectName = formatSubjectName(subject.name);
+            const globalStatus = getText(`status-global-${index}`);
+
+            rows.push({
+                eixo: subject.hasPratica ? "Teórico" : "Geral",
+                b1: subject.b1_teo !== "" && subject.b1_teo !== undefined ? parseFloat(subject.b1_teo).toFixed(2) : "-",
+                b2: getInputValue(`b2-teo-${index}`),
+                precisa: getText(`needed-b2-teo-${index}`),
+                media: getText(`media-teo-${index}`),
+                rec: getText(`needed-rec-teo-${index}`),
+                status: subject.hasPratica ? getText(`status-teo-${index}`) : globalStatus
+            });
+
+            if (subject.hasPratica) {
+                let b1Pratica = subject.b1_prac !== "" && subject.b1_prac !== undefined ? parseFloat(subject.b1_prac).toFixed(2) : "-";
+                let b2Pratica = getInputValue(`b2-prac-${index}`);
+
+                if (subject.isSemio) {
+                    const vhab1 = subject.b1_vhab !== "" && subject.b1_vhab !== undefined ? parseFloat(subject.b1_vhab).toFixed(2) : "-";
+                    const vhab2 = getInputValue(`b2-vhab-${index}`);
+                    b1Pratica = `Prática: ${b1Pratica} / VHAB: ${vhab1}`;
+                    b2Pratica = `Prática: ${b2Pratica} / VHAB: ${vhab2}`;
+                }
+
+                rows.push({
+                    eixo: subject.isSemio ? "Prático + VHAB" : "Prático",
+                    b1: b1Pratica,
+                    b2: b2Pratica,
+                    precisa: getText(`needed-b2-prac-${index}`),
+                    media: getText(`media-prac-${index}`),
+                    rec: getText(`needed-rec-prac-${index}`),
+                    status: getText(`status-prac-${index}`)
+                });
+            }
+
+            rows.forEach((row, rowIndex) => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    ${rowIndex === 0 ? `<td rowspan="${rows.length}"><strong>${subjectName}</strong><br><span style="color:#6b7280;font-size:8.5px;">${globalStatus}</span></td>` : ""}
+                    <td>${row.eixo}</td>
+                    <td>${row.b1}</td>
+                    <td>${row.b2}</td>
+                    <td>${row.precisa}</td>
+                    <td><strong>${row.media}</strong></td>
+                    <td>${row.rec}</td>
+                    <td><span class="pdf-status ${getStatusClass(row.status)}">${row.status || "A avaliar"}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        });
+    }
+
+    function exportarPDF() {
+        buildPdfReport();
         window.print();
     }
 
