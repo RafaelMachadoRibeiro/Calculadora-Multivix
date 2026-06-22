@@ -404,7 +404,7 @@
     ];
 
     let subjects = JSON.parse(localStorage.getItem('med_subjects_v6')) || defaultSubjects;
-    const targetMedia = 7.0; // Média fixada em 70%
+    const targetMedia = 6.75; // Média fixada em 70%
 
     function saveToStorage() {
         localStorage.setItem('med_subjects_v6', JSON.stringify(subjects));
@@ -571,8 +571,24 @@
         else if (neededB2 > 10) { neededB2El.textContent = "10.00+ (Rec)"; neededB2El.style.color = "var(--danger)"; }
         else { neededB2El.textContent = neededB2.toFixed(2); neededB2El.style.color = "var(--text)"; }
 
-        let valB2 = isNaN(b2) ? 0 : b2;
-        let projectedMedia = (b1 + valB2) / 2;
+        if (isNaN(b2)) {
+            mediaEl.textContent = "-";
+            neededRecEl.textContent = "Preencha o 2ºB";
+            neededRecEl.style.color = "var(--text-secondary)";
+
+            if (statusEl) {
+                statusEl.textContent = "";
+                statusEl.className = "status-badge";
+            }
+
+            return {
+                m: NaN,
+                approved: false,
+                activeSimulation: false
+            };
+        }
+
+        let projectedMedia = (b1 + b2) / 2;
         mediaEl.textContent = projectedMedia.toFixed(2);
 
         let neededRec = 12 - projectedMedia;
