@@ -282,6 +282,133 @@
         border-left: 4px solid var(--primary);
     }
 
+
+        .export-card{
+            background: linear-gradient(135deg, #ffffff, #f8fbff);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.06);
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .export-card h2{
+            font-size: 18px;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .export-card p{
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .export-btn{
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(10,88,202,.25);
+            transition: .2s;
+        }
+
+        .export-btn:hover{
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .print-title{
+            display: none;
+        }
+
+        @media print {
+            body{
+                background: #fff;
+                padding: 0;
+                display: block;
+            }
+
+            .container{
+                max-width: 100%;
+                width: 100%;
+            }
+
+            header,
+            .guide-card,
+            .settings-card,
+            .export-card,
+            footer{
+                display: none !important;
+            }
+
+            .print-title{
+                display: block;
+                text-align: center;
+                margin-bottom: 18px;
+                padding-bottom: 12px;
+                border-bottom: 2px solid #212529;
+            }
+
+            .print-title h1{
+                font-size: 22px;
+                margin-bottom: 5px;
+            }
+
+            .print-title p{
+                font-size: 12px;
+                color: #555;
+            }
+
+            .subjects-grid{
+                gap: 12px;
+            }
+
+            .subject-card{
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #d9dee3;
+                border-left: 5px solid #0a58ca;
+                border-radius: 10px;
+                padding: 14px;
+            }
+
+            .track-row{
+                background: #fff;
+                border: 1px solid #e5e7eb;
+                border-left: 3px solid #6c757d;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 8px;
+                padding: 10px;
+            }
+
+            .input-block input{
+                border: none;
+                background: #f8fafc;
+                padding: 4px;
+            }
+
+            .status-badge{
+                border: 1px solid currentColor;
+                background: #fff !important;
+            }
+
+            .final-score-badge{
+                text-align: left;
+                margin-top: 8px;
+            }
+        }
+
         footer {
             text-align: center;
             margin-top: 40px;
@@ -365,7 +492,7 @@
 
         <div class="guide-note">
             <strong>Regras da calculadora:</strong><br>
-            ✔ Aprovação direta: média ≥ 7,0<br>
+            ✔ Aprovação direta: soma do 1ºB + 2ºB ≥ 13,5<br>
             ✔ Recuperação: (Média do eixo + Recuperação) ÷ 2 ≥ 6,0
         </div>
     </div>
@@ -373,12 +500,29 @@
     <div class="settings-card">
         <div class="setting-group">
             <label>Média p/ Aprovação Direta:</label>
-            <span style="font-weight: 700; font-size: 16px; color: var(--primary);">7.0 (70%)</span>
+            <span style="font-weight: 700; font-size: 16px; color: var(--success);">14 pontos no semestre (média 7)</span>
         </div>
         <div class="setting-group">
             <label>Regra Geral da Recuperação:</label>
             <span style="font-size: 13px; color: var(--text-secondary);">(Média do Eixo + Rec) / 2 ≥ 6.0</span>
         </div>
+    </div>
+
+
+    <div class="export-card">
+        <div>
+            <h2>📄 Exportar acompanhamento</h2>
+            <p>
+                Após preencher suas notas, clique no botão para gerar um PDF bonito da tabela.
+                Na tela de impressão, escolha a opção <strong>Salvar como PDF</strong>.
+            </p>
+        </div>
+        <button class="export-btn" onclick="exportarPDF()">Exportar tabela em PDF</button>
+    </div>
+
+    <div class="print-title">
+        <h1>Calculadora Acadêmica - Medicina Multivix</h1>
+        <p>Relatório de acompanhamento de notas • MED01IA • Desenvolvido por Rafael Machado</p>
     </div>
 
     <div class="subjects-grid" id="subjects-container">
@@ -404,7 +548,7 @@
     ];
 
     let subjects = JSON.parse(localStorage.getItem('med_subjects_v6')) || defaultSubjects;
-    const targetMedia = 6.75; // Média fixada em 70%
+    const targetMedia = 6.75; // Aprovação direta: 13,5 pontos no semestre
 
     function saveToStorage() {
         localStorage.setItem('med_subjects_v6', JSON.stringify(subjects));
@@ -426,23 +570,15 @@
                 let teoInputsHTML = '';
                 
                 if (subject.isSemio) {
-                    // Semiologia: Inserção de Prova Teórica + VHAB no Bloco de Teoria
+                    // Semiologia: VHAB foi removido da teoria e ficará no eixo prático
                     teoInputsHTML = `
                         <div class="input-block">
                             <label>1ºB Prova Teórica</label>
-                            <input type="number" step="0.01" min="0" max="10" value="${subject.b1_teo || ''}" oninput="updateField(${index}, 'b1_teo', this.value)">
-                        </div>
-                        <div class="input-block">
-                            <label>1ºB VHAB</label>
-                            <input type="number" step="0.01" min="0" max="10" value="${subject.b1_vhab || ''}" oninput="updateField(${index}, 'b1_vhab', this.value)">
+                            <input type="number" step="0.01" min="0" max="10" value="${subject.b1_teo || ''}" oninput="updateField(${index}, 'b1_teo', this.value)" onblur="validarNota(this)">
                         </div>
                         <div class="input-block">
                             <label>Simular 2ºB Teórica</label>
-                            <input type="number" step="0.01" min="0" max="10" id="b2-teo-${index}" placeholder="Nota">
-                        </div>
-                        <div class="input-block">
-                            <label>Simular 2ºB VHAB</label>
-                            <input type="number" step="0.01" min="0" max="10" id="b2-vhab-${index}" placeholder="Nota">
+                            <input type="number" step="0.01" min="0" max="10" id="b2-teo-${index}" placeholder="Nota" onblur="validarNota(this)">
                         </div>
                     `;
                 } else {
@@ -450,11 +586,11 @@
                     teoInputsHTML = `
                         <div class="input-block">
                             <label>1ºB Prova Teórica</label>
-                            <input type="number" step="0.01" min="0" max="10" value="${subject.b1_teo || ''}" oninput="updateField(${index}, 'b1_teo', this.value)">
+                            <input type="number" step="0.01" min="0" max="10" value="${subject.b1_teo || ''}" oninput="updateField(${index}, 'b1_teo', this.value)" onblur="validarNota(this)">
                         </div>
                         <div class="input-block">
                             <label>Simular 2ºB Teórica</label>
-                            <input type="number" step="0.01" min="0" max="10" id="b2-teo-${index}" placeholder="Nota">
+                            <input type="number" step="0.01" min="0" max="10" id="b2-teo-${index}" placeholder="Nota" onblur="validarNota(this)">
                         </div>
                     `;
                 }
@@ -482,12 +618,22 @@
                             <div class="track-label">Eixo Prático (Prova Prática) <span id="status-prac-${index}" class="status-badge"></span></div>
                             <div class="input-block">
                                 <label>1ºB Prova Prática</label>
-                                <input type="number" step="0.01" min="0" max="10" value="${subject.b1_prac || ''}" oninput="updateField(${index}, 'b1_prac', this.value)">
+                                <input type="number" step="0.01" min="0" max="10" value="${subject.b1_prac || ''}" oninput="updateField(${index}, 'b1_prac', this.value)" onblur="validarNota(this)">
                             </div>
                             <div class="input-block">
                                 <label>Simular 2ºB Prática</label>
-                                <input type="number" step="0.01" min="0" max="10" id="b2-prac-${index}" placeholder="Nota">
+                                <input type="number" step="0.01" min="0" max="10" id="b2-prac-${index}" placeholder="Nota" onblur="validarNota(this)">
                             </div>
+                            ${subject.isSemio ? `
+                            <div class="input-block">
+                                <label>1ºB VHAB</label>
+                                <input type="number" step="0.01" min="0" max="10" value="${subject.b1_vhab || ''}" oninput="updateField(${index}, 'b1_vhab', this.value)" onblur="validarNota(this)">
+                            </div>
+                            <div class="input-block">
+                                <label>Simular 2ºB VHAB</label>
+                                <input type="number" step="0.01" min="0" max="10" id="b2-vhab-${index}" placeholder="Nota" onblur="validarNota(this)">
+                            </div>
+                            ` : ``}
                             <div class="result-block">
                                 <span>Precisa no 2ºB</span>
                                 <div class="result-value" id="needed-b2-prac-${index}">-</div>
@@ -510,11 +656,11 @@
                     <div class="track-row">
                         <div class="input-block">
                             <label>1ºB Prova Teórica</label>
-                            <input type="number" step="0.01" min="0" max="10" value="${subject.b1_teo || ''}" oninput="updateField(${index}, 'b1_teo', this.value)">
+                            <input type="number" step="0.01" min="0" max="10" value="${subject.b1_teo || ''}" oninput="updateField(${index}, 'b1_teo', this.value)" onblur="validarNota(this)">
                         </div>
                         <div class="input-block">
                             <label>Simular 2ºB Teórica</label>
-                            <input type="number" step="0.01" min="0" max="10" id="b2-teo-${index}" placeholder="Nota">
+                            <input type="number" step="0.01" min="0" max="10" id="b2-teo-${index}" placeholder="Nota" onblur="validarNota(this)">
                         </div>
                         <div class="result-block">
                             <span>Precisa no 2ºB</span>
@@ -553,10 +699,44 @@
         });
     }
 
+    function validarNota(input) {
+        if (input.value === "") return;
+
+        let valor = parseFloat(input.value);
+
+        if (isNaN(valor)) {
+            input.value = "";
+            return;
+        }
+
+        if (valor < 0) valor = 0;
+        if (valor > 10) valor = 10;
+
+        input.value = valor.toFixed(2);
+    }
+
     function updateField(index, field, value) {
-        subjects[index][field] = value;
+        if (value === "") {
+            subjects[index][field] = "";
+            saveToStorage();
+            calculateAll();
+            return;
+        }
+
+        let nota = parseFloat(value);
+        if (isNaN(nota)) return;
+
+        if (nota < 0) nota = 0;
+        if (nota > 10) nota = 10;
+
+        subjects[index][field] = nota;
         saveToStorage();
         calculateAll();
+    }
+
+    function exportarPDF() {
+        calculateAll();
+        window.print();
     }
 
     function processTrackCalculations(b1, b2, target, neededB2El, mediaEl, neededRecEl, statusEl) {
@@ -618,15 +798,13 @@
             let activeTeoSim = false;
 
             if (subject.isSemio) {
-                // Regra Semiologia Teórica: 70% Prova Teórica + 30% VHAB
+                // Semiologia: teoria somente com prova teórica
                 let t1 = parseFloat(subject.b1_teo);
-                let v1 = parseFloat(subject.b1_vhab);
-                if (!isNaN(t1) && !isNaN(v1)) b1TeoFinal = (t1 * 0.7) + (v1 * 0.3);
+                if (!isNaN(t1)) b1TeoFinal = t1;
 
                 let t2 = parseFloat(document.getElementById(`b2-teo-${index}`).value);
-                let v2 = parseFloat(document.getElementById(`b2-vhab-${index}`).value);
-                if (!isNaN(t2) || !isNaN(v2)) {
-                    b2TeoFinal = ((isNaN(t2) ? 0 : t2) * 0.7) + ((isNaN(v2) ? 0 : v2) * 0.3);
+                if (!isNaN(t2)) {
+                    b2TeoFinal = t2;
                     activeTeoSim = true;
                 }
             } else {
@@ -648,8 +826,25 @@
             if (subject.isSemio) resTeo.activeSimulation = activeTeoSim; // Força flag caso digitem apenas um campo em Semio
 
             if (subject.hasPratica) {
-                const b1Prac = parseFloat(subject.b1_prac);
-                const b2Prac = parseFloat(document.getElementById(`b2-prac-${index}`).value);
+                let b1Prac = parseFloat(subject.b1_prac);
+                let b2Prac = parseFloat(document.getElementById(`b2-prac-${index}`).value);
+
+                if (subject.isSemio) {
+                    // Semiologia: eixo prático = 70% prova prática + 30% VHAB
+                    const vhab1 = parseFloat(subject.b1_vhab);
+                    const vhab2Input = document.getElementById(`b2-vhab-${index}`);
+                    const vhab2 = vhab2Input ? parseFloat(vhab2Input.value) : NaN;
+
+                    if (!isNaN(b1Prac) && !isNaN(vhab1)) {
+                        b1Prac = (b1Prac * 0.7) + (vhab1 * 0.3);
+                    } else {
+                        b1Prac = NaN;
+                    }
+
+                    if (!isNaN(b2Prac) || !isNaN(vhab2)) {
+                        b2Prac = ((isNaN(b2Prac) ? 0 : b2Prac) * 0.7) + ((isNaN(vhab2) ? 0 : vhab2) * 0.3);
+                    }
+                }
                 
                 const neededB2PracEl = document.getElementById(`needed-b2-prac-${index}`);
                 const mediaPracEl = document.getElementById(`media-prac-${index}`);
