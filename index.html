@@ -17,6 +17,7 @@
             --danger: #dc3545;
             --border: #dee2e6;
             --accent-purple: #6f42c1;
+            --accent-blue: #0dcaf0;
         }
 
         * {
@@ -36,61 +37,27 @@
 
         .container {
             width: 100%;
-            max-width: 1150px;
+            max-width: 1100px;
         }
 
-        header{
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 35px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 12px rgba(0,0,0,.05);
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--primary), #003580);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .header-content{
-            max-width: 800px;
-            margin: auto;
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
         }
 
-        .header-tag{
-            color: var(--primary);
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-
-        header h1{
-            margin-top: 10px;
-            font-size: 34px;
-            color: #212529;
-            margin-bottom: 15px;
-        }
-
-        header p{
-            color: #6c757d;
-            line-height: 1.7;
-            font-size: 15px;
-            margin-bottom: 20px;
-        }
-
-        .header-info{
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            align-items: center;
-            color: #6c757d;
+        header p {
             font-size: 14px;
-            font-weight: 600;
-        }
-
-        .header-info a{
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .header-info a:hover{
-            text-decoration: underline;
+            opacity: 0.9;
         }
 
         .settings-card {
@@ -115,6 +82,16 @@
         .setting-group label {
             font-weight: 600;
             font-size: 14px;
+        }
+
+        .setting-group input {
+            width: 70px;
+            padding: 6px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
         }
 
         .subjects-grid {
@@ -230,286 +207,6 @@
             color: #495057;
             text-align: right;
         }
-        .guide-card{
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 25px;
-    margin-bottom: 25px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.05);
-    }
-
-    .guide-card h2{
-        font-size: 20px;
-        margin-bottom: 20px;
-        color: #212529;
-    }
-
-    .guide-grid{
-        display: grid;
-        grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-        gap: 20px;
-    }
-
-    .guide-item{
-        display: flex;
-        gap: 15px;
-        align-items: flex-start;
-    }
-
-    .guide-item span{
-        font-size: 24px;
-    }
-
-    .guide-item strong{
-        color: #212529;
-    }
-
-    .guide-item p{
-        margin-top: 5px;
-        color: var(--text-secondary);
-        font-size: 14px;
-        line-height: 1.5;
-    }
-
-    .guide-note{
-        margin-top: 20px;
-        padding: 15px;
-        background: #f8fafc;
-        border-radius: 10px;
-        color: #495057;
-        font-size: 14px;
-        border-left: 4px solid var(--primary);
-    }
-
-
-        .export-card{
-            background: linear-gradient(135deg, #ffffff, #f8fbff);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 22px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.06);
-            display: flex;
-            justify-content: space-between;
-            gap: 18px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .export-card h2{
-            font-size: 18px;
-            margin-bottom: 6px;
-            color: var(--text);
-        }
-
-        .export-card p{
-            color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .export-btn{
-            border: none;
-            background: var(--primary);
-            color: #fff;
-            padding: 12px 18px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 3px 10px rgba(10,88,202,.25);
-            transition: .2s;
-        }
-
-        .export-btn:hover{
-            background: var(--primary-hover);
-            transform: translateY(-1px);
-        }
-
-        .print-title{
-            display: none;
-        }
-
-        .pdf-report{
-            display: none;
-        }
-
-        @media print {
-            @page{
-                size: A4 landscape;
-                margin: 8mm;
-            }
-
-            *{
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            body{
-                background: #fff;
-                padding: 0;
-                display: block;
-                font-size: 10px;
-            }
-
-            .container{
-                max-width: 100%;
-                width: 100%;
-            }
-
-            header,
-            .guide-card,
-            .settings-card,
-            .export-card,
-            .subjects-grid,
-            .print-title,
-            footer{
-                display: none !important;
-            }
-
-            .pdf-report{
-                display: block !important;
-                width: 100%;
-            }
-
-            .pdf-header{
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                gap: 18px;
-                padding: 12px 14px;
-                margin-bottom: 10px;
-                border: 1px solid #d7dde5;
-                border-radius: 10px;
-                background: #f8fafc;
-            }
-
-            .pdf-kicker{
-                font-size: 9px;
-                font-weight: 800;
-                letter-spacing: 1.6px;
-                color: #0a58ca;
-            }
-
-            .pdf-header h1{
-                font-size: 18px;
-                margin: 3px 0 2px;
-                color: #111827;
-            }
-
-            .pdf-header p{
-                font-size: 10px;
-                color: #6b7280;
-                margin: 0;
-            }
-
-            .pdf-rules{
-                min-width: 245px;
-                display: grid;
-                gap: 2px;
-                font-size: 9.5px;
-                color: #374151;
-                background: #fff;
-                border: 1px solid #e5e7eb;
-                border-radius: 8px;
-                padding: 8px 10px;
-            }
-
-            .pdf-rules strong{
-                color: #111827;
-                font-size: 10px;
-            }
-
-            .pdf-table{
-                width: 100%;
-                border-collapse: collapse;
-                table-layout: fixed;
-                font-size: 9.2px;
-                background: #fff;
-            }
-
-            .pdf-table th{
-                background: #0a58ca;
-                color: #fff;
-                text-align: left;
-                padding: 6px 6px;
-                border: 1px solid #0a58ca;
-                font-size: 8.8px;
-                text-transform: uppercase;
-                letter-spacing: .3px;
-            }
-
-            .pdf-table td{
-                border: 1px solid #d7dde5;
-                padding: 5px 6px;
-                vertical-align: middle;
-                color: #111827;
-                line-height: 1.2;
-                word-break: normal;
-            }
-
-            .pdf-table th:nth-child(1),
-            .pdf-table td:nth-child(1){ width: 28%; }
-            .pdf-table th:nth-child(2),
-            .pdf-table td:nth-child(2){ width: 10%; }
-            .pdf-table th:nth-child(3),
-            .pdf-table td:nth-child(3),
-            .pdf-table th:nth-child(4),
-            .pdf-table td:nth-child(4),
-            .pdf-table th:nth-child(5),
-            .pdf-table td:nth-child(5),
-            .pdf-table th:nth-child(6),
-            .pdf-table td:nth-child(6),
-            .pdf-table th:nth-child(7),
-            .pdf-table td:nth-child(7){ width: 9%; text-align: center; }
-            .pdf-table th:nth-child(8),
-            .pdf-table td:nth-child(8){ width: 17%; text-align: center; }
-
-            .pdf-table tr:nth-child(even) td{
-                background: #f9fafb;
-            }
-
-            .pdf-status{
-                display: inline-block;
-                padding: 3px 6px;
-                border-radius: 999px;
-                font-weight: 800;
-                font-size: 8.5px;
-                border: 1px solid #cbd5e1;
-                background: #fff;
-                color: #334155;
-            }
-
-            .pdf-status.aprovado{
-                color: #166534;
-                background: #dcfce7;
-                border-color: #86efac;
-            }
-
-            .pdf-status.recuperacao{
-                color: #854d0e;
-                background: #fef3c7;
-                border-color: #fde68a;
-            }
-
-            .pdf-status.reprovado{
-                color: #991b1b;
-                background: #fee2e2;
-                border-color: #fecaca;
-            }
-
-            .pdf-footer{
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-top: 8px;
-                padding-top: 6px;
-                border-top: 1px solid #d7dde5;
-                font-size: 9px;
-                color: #6b7280;
-            }
-        }
 
         footer {
             text-align: center;
@@ -533,76 +230,14 @@
 
 <div class="container">
     <header>
-        <div class="header-content">
-            <span class="header-tag">MEDICINA • MULTIVIX</span>
-
-            <h1>Calculadora Acadêmica</h1>
-
-            <p>
-                Ferramenta desenvolvida para auxiliar estudantes de Medicina no
-                acompanhamento do desempenho acadêmico, permitindo simular médias,
-                calcular recuperações e acompanhar os eixos teóricos e práticos
-                durante todo o semestre.
-            </p>
-
-            <div class="header-info">
-                <span>MED01IA</span>
-                <span>•</span>
-                <a href="https://rafaelmachadoribeiro.github.io/Calculadora-Multivix/" target="_blank">
-                    rafaelmachadoribeiro.github.io/Calculadora-Multivix
-                </a>
-            </div>
-        </div>
+        <h1>Painel de Desempenho Acadêmico - Medicina</h1>
+        <p>Acompanhe suas metas com divisões e recuperações independentes para Teoria e Prática</p>
     </header>
-
-    <div class="guide-card">
-        <h2>📖 Como utilizar</h2>
-
-        <div class="guide-grid">
-            <div class="guide-item">
-                <span>1️⃣</span>
-                <div>
-                    <strong>Digite suas notas do 1º bimestre</strong>
-                    <p>Preencha as notas já obtidas em cada disciplina.</p>
-                </div>
-            </div>
-
-            <div class="guide-item">
-                <span>2️⃣</span>
-                <div>
-                    <strong>Simule o 2º bimestre</strong>
-                    <p>Insira possíveis notas para visualizar diferentes cenários.</p>
-                </div>
-            </div>
-
-            <div class="guide-item">
-                <span>3️⃣</span>
-                <div>
-                    <strong>Acompanhe as médias</strong>
-                    <p>Veja automaticamente quanto falta para aprovação ou recuperação.</p>
-                </div>
-            </div>
-
-            <div class="guide-item">
-                <span>4️⃣</span>
-                <div>
-                    <strong>Verifique sua situação</strong>
-                    <p>Os indicadores mostram se você está aprovado, em recuperação ou reprovado.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="guide-note">
-            <strong>Regras da calculadora:</strong><br>
-            ✔ Aprovação direta: soma do 1ºB + 2ºB ≥ 14<br>
-            ✔ Recuperação: (Média do eixo + Recuperação) ÷ 2 ≥ 6,0
-        </div>
-    </div>
 
     <div class="settings-card">
         <div class="setting-group">
             <label>Média p/ Aprovação Direta:</label>
-            <span style="font-weight: 700; font-size: 16px; color: var(--success);">14 pontos no semestre (média 7)</span>
+            <input type="number" id="target-media" value="7.0" step="0.1" min="0" max="10" oninput="calculateAll()">
         </div>
         <div class="setting-group">
             <label>Regra Geral da Recuperação:</label>
@@ -610,85 +245,36 @@
         </div>
     </div>
 
-
-    <div class="export-card">
-        <div>
-            <h2>📄 Exportar acompanhamento</h2>
-            <p>
-                Gere um relatório compacto, limpo e organizado em uma única página.
-                Na tela de impressão, escolha <strong>Salvar como PDF</strong>.
-            </p>
-        </div>
-        <button class="export-btn" onclick="exportarPDF()">Exportar tabela em PDF</button>
-    </div>
-
-    <div class="print-title">
-        <h1>Calculadora Acadêmica - Medicina Multivix</h1>
-        <p>Relatório de acompanhamento de notas • MED01IA • Desenvolvido por Rafael Machado</p>
-    </div>
-
-    <section class="pdf-report" id="pdf-report">
-        <div class="pdf-header">
-            <div>
-                <span class="pdf-kicker">MEDICINA • MULTIVIX</span>
-                <h1>Relatório de Acompanhamento de Notas</h1>
-                <p>Calculadora Acadêmica • MED01IA</p>
-            </div>
-            <div class="pdf-rules">
-                <strong>Regras</strong>
-                <span>Aprovação direta: 14 pontos no semestre</span>
-                <span>Recuperação: (Média + Rec) ÷ 2 ≥ 6,0</span>
-            </div>
-        </div>
-
-        <table class="pdf-table">
-            <thead>
-                <tr>
-                    <th>Disciplina</th>
-                    <th>Eixo</th>
-                    <th>1ºB</th>
-                    <th>2ºB</th>
-                    <th>Precisa no 2ºB</th>
-                    <th>Média</th>
-                    <th>Rec.</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="pdf-report-body"></tbody>
-        </table>
-
-        <div class="pdf-footer">
-            <span>Gerado pela Calculadora Acadêmica</span>
-            <span>Desenvolvido por Rafael Machado ∴</span>
-        </div>
-    </section>
-
     <div class="subjects-grid" id="subjects-container">
         </div>
 
     <footer>
-        Desenvolvido por Rafael Machado∴
+        Desenvolvido por Rafael Machado ∴
     </footer>
 </div>
 
 <script>
-    // Lista de disciplinas OFICIAIS organizadas estritamente em ORDEM ALFABÉTICA
+    // Lista oficial das 9 disciplinas fixas com estrutura para notas separadas
     const defaultSubjects = [
-        { name: "Anatomia I - MED01IA", hasPratica: true, b1_teo: "", b1_prac: "" },
         { name: "Atenção Primária em Saúde I - MED01IA", hasPratica: false, b1_teo: "" },
-        { name: "Biologia Celular - MED01IA", hasPratica: false, b1_teo: "" },
         { name: "Bioquímica - MED01IA", hasPratica: false, b1_teo: "" },
-        { name: "Embriologia I - MED01IA", hasPratica: false, b1_teo: "" },
         { name: "Fisiologia I - MED01IA", hasPratica: false, b1_teo: "" },
-        { name: "Histologia I - MED01IA", hasPratica: true, b1_teo: "", b1_prac: "" },
-        { name: "Semiologia I - MED01IA", hasPratica: true, isSemio: true, b1_teo: "", b1_vhab: "", b1_prac: "" }
+        { name: "Anatomia I - MED01IA", hasPratica: true, labelPratica: "Prática (ADHB)", b1_teo: "", b1_prac: "" },
+        { name: "Projeto de Intervenção na Comunidade I - MED01IA", hasPratica: false, b1_teo: "" },
+        { name: "Semiologia I - MED01IA", hasPratica: true, labelPratica: "Prática (VHAB)", isSemio: true, b1_teo: "", b1_prac: "" },
+        { name: "Biologia Celular - MED01IA", hasPratica: false, b1_teo: "" },
+        { name: "Histologia I - MED01IA", hasPratica: true, labelPratica: "Prática (ADHB)", b1_teo: "", b1_prac: "" },
+        { name: "Embriologia I - MED01IA", hasPratica: false, b1_teo: "" }
     ];
 
-    let subjects = JSON.parse(localStorage.getItem('med_subjects_v8')) || defaultSubjects;
-    const targetMedia = 6.75; // Aprovação direta: 13,5 pontos no semestre
+    let subjects = JSON.parse(localStorage.getItem('med_subjects_v5')) || defaultSubjects;
+    let targetMedia = parseFloat(localStorage.getItem('med_target_media_v5')) || 7.0;
+
+    document.getElementById('target-media').value = targetMedia;
 
     function saveToStorage() {
-        localStorage.setItem('med_subjects_v8', JSON.stringify(subjects));
+        localStorage.setItem('med_subjects_v5', JSON.stringify(subjects));
+        localStorage.setItem('med_target_media_v5', targetMedia.toString());
     }
 
     function renderSubjects() {
@@ -703,40 +289,19 @@
             let bodyHTML = '';
 
             if (subject.hasPratica) {
-                // HTML customizado para as disciplinas com práticas isoladas
-                let teoInputsHTML = '';
-                
-                if (subject.isSemio) {
-                    // Semiologia: VHAB foi removido da teoria e ficará no eixo prático
-                    teoInputsHTML = `
-                        <div class="input-block">
-                            <label>1ºB Prova Teórica</label>
-                            <input type="number" step="0.01" min="0" max="10" value="${subject.b1_teo || ''}" oninput="updateField(${index}, 'b1_teo', this.value)" onblur="validarNota(this)">
-                        </div>
-                        <div class="input-block">
-                            <label>Simular 2ºB Teórica</label>
-                            <input type="number" step="0.01" min="0" max="10" id="b2-teo-${index}" placeholder="Nota" onblur="validarNota(this)">
-                        </div>
-                    `;
-                } else {
-                    // Anatomia e Histologia padrão
-                    teoInputsHTML = `
-                        <div class="input-block">
-                            <label>1ºB Prova Teórica</label>
-                            <input type="number" step="0.01" min="0" max="10" value="${subject.b1_teo || ''}" oninput="updateField(${index}, 'b1_teo', this.value)" onblur="validarNota(this)">
-                        </div>
-                        <div class="input-block">
-                            <label>Simular 2ºB Teórica</label>
-                            <input type="number" step="0.01" min="0" max="10" id="b2-teo-${index}" placeholder="Nota" onblur="validarNota(this)">
-                        </div>
-                    `;
-                }
-
+                // Template para matérias com Teoria e Prática totalmente isoladas
                 bodyHTML = `
                     <div class="track-container">
                         <div class="track-row teoria">
-                            <div class="track-label">Eixo Teórico <span id="status-teo-${index}" class="status-badge"></span></div>
-                            ${teoInputsHTML}
+                            <div class="track-label">Eixo Teórico (ACB) <span id="status-teo-${index}" class="status-badge"></span></div>
+                            <div class="input-block">
+                                <label>1ºB Nota</label>
+                                <input type="number" step="0.01" min="0" max="10" value="${subject.b1_teo || ''}" oninput="updateField(${index}, 'b1_teo', this.value)">
+                            </div>
+                            <div class="input-block">
+                                <label>Simular 2ºB</label>
+                                <input type="number" step="0.01" min="0" max="10" id="b2-teo-${index}" placeholder="Nota">
+                            </div>
                             <div class="result-block">
                                 <span>Precisa no 2ºB</span>
                                 <div class="result-value" id="needed-b2-teo-${index}">-</div>
@@ -752,25 +317,15 @@
                         </div>
 
                         <div class="track-row pratica">
-                            <div class="track-label">Eixo Prático (Prova Prática) <span id="status-prac-${index}" class="status-badge"></span></div>
+                            <div class="track-label">${subject.labelPratica} <span id="status-prac-${index}" class="status-badge"></span></div>
                             <div class="input-block">
-                                <label>1ºB Prova Prática</label>
-                                <input type="number" step="0.01" min="0" max="10" value="${subject.b1_prac || ''}" oninput="updateField(${index}, 'b1_prac', this.value)" onblur="validarNota(this)">
+                                <label>1ºB Nota</label>
+                                <input type="number" step="0.01" min="0" max="10" value="${subject.b1_prac || ''}" oninput="updateField(${index}, 'b1_prac', this.value)">
                             </div>
                             <div class="input-block">
-                                <label>Simular 2ºB Prática</label>
-                                <input type="number" step="0.01" min="0" max="10" id="b2-prac-${index}" placeholder="Nota" onblur="validarNota(this)">
+                                <label>Simular 2ºB</label>
+                                <input type="number" step="0.01" min="0" max="10" id="b2-prac-${index}" placeholder="Nota">
                             </div>
-                            ${subject.isSemio ? `
-                            <div class="input-block">
-                                <label>1ºB VHAB</label>
-                                <input type="number" step="0.01" min="0" max="10" value="${subject.b1_vhab || ''}" oninput="updateField(${index}, 'b1_vhab', this.value)" onblur="validarNota(this)">
-                            </div>
-                            <div class="input-block">
-                                <label>Simular 2ºB VHAB</label>
-                                <input type="number" step="0.01" min="0" max="10" id="b2-vhab-${index}" placeholder="Nota" onblur="validarNota(this)">
-                            </div>
-                            ` : ``}
                             <div class="result-block">
                                 <span>Precisa no 2ºB</span>
                                 <div class="result-value" id="needed-b2-prac-${index}">-</div>
@@ -788,16 +343,16 @@
                     <div class="final-score-badge" id="combined-score-${index}"></div>
                 `;
             } else {
-                // Matérias 100% Teóricas comuns
+                // Template para matérias comuns (100% Teóricas)
                 bodyHTML = `
                     <div class="track-row">
                         <div class="input-block">
-                            <label>1ºB Prova Teórica</label>
-                            <input type="number" step="0.01" min="0" max="10" value="${subject.b1_teo || ''}" oninput="updateField(${index}, 'b1_teo', this.value)" onblur="validarNota(this)">
+                            <label>Nota 1º Bim</label>
+                            <input type="number" step="0.01" min="0" max="10" value="${subject.b1_teo || ''}" oninput="updateField(${index}, 'b1_teo', this.value)">
                         </div>
                         <div class="input-block">
-                            <label>Simular 2ºB Teórica</label>
-                            <input type="number" step="0.01" min="0" max="10" id="b2-teo-${index}" placeholder="Nota" onblur="validarNota(this)">
+                            <label>Simular 2º Bim</label>
+                            <input type="number" step="0.01" min="0" max="10" id="b2-teo-${index}" placeholder="Nota">
                         </div>
                         <div class="result-block">
                             <span>Precisa no 2ºB</span>
@@ -826,243 +381,77 @@
             `;
             container.appendChild(card);
             
+            // Adiciona listeners para cálculos em tempo real
             document.getElementById(`b2-teo-${index}`).addEventListener('input', () => calculateAll());
             if (subject.hasPratica) {
                 document.getElementById(`b2-prac-${index}`).addEventListener('input', () => calculateAll());
-                if (subject.isSemio) {
-                    document.getElementById(`b2-vhab-${index}`).addEventListener('input', () => calculateAll());
-                }
             }
         });
-    }
-
-    function validarNota(input) {
-        if (input.value === "") return;
-
-        let valor = parseFloat(input.value);
-
-        if (isNaN(valor)) {
-            input.value = "";
-            return;
-        }
-
-        if (valor < 0) valor = 0;
-        if (valor > 10) valor = 10;
-
-        input.value = valor.toFixed(2);
     }
 
     function updateField(index, field, value) {
-        if (value === "") {
-            subjects[index][field] = "";
-            saveToStorage();
-            calculateAll();
-            return;
-        }
-
-        let nota = parseFloat(value);
-        if (isNaN(nota)) return;
-
-        if (nota < 0) nota = 0;
-        if (nota > 10) nota = 10;
-
-        subjects[index][field] = nota;
+        subjects[index][field] = value;
         saveToStorage();
         calculateAll();
-    }
-
-    function getText(id) {
-        const el = document.getElementById(id);
-        return el ? el.textContent.trim() || "-" : "-";
-    }
-
-    function getInputValue(id) {
-        const el = document.getElementById(id);
-        return el && el.value !== "" ? parseFloat(el.value).toFixed(2) : "-";
-    }
-
-    function formatSubjectName(name) {
-        return name.replace(" - MED01IA", "");
-    }
-
-    function getStatusClass(status) {
-        const s = (status || "").toLowerCase();
-        if (s.includes("aprov") || s === "ok") return "aprovado";
-        if (s.includes("reprov") || s === "rep") return "reprovado";
-        if (s.includes("rec")) return "recuperacao";
-        return "";
-    }
-
-    function buildPdfReport() {
-        calculateAll();
-        const tbody = document.getElementById("pdf-report-body");
-        tbody.innerHTML = "";
-
-        subjects.forEach((subject, index) => {
-            const rows = [];
-            const subjectName = formatSubjectName(subject.name);
-            const globalStatus = getText(`status-global-${index}`);
-
-            rows.push({
-                eixo: subject.hasPratica ? "Teórico" : "Geral",
-                b1: subject.b1_teo !== "" && subject.b1_teo !== undefined ? parseFloat(subject.b1_teo).toFixed(2) : "-",
-                b2: getInputValue(`b2-teo-${index}`),
-                precisa: getText(`needed-b2-teo-${index}`),
-                media: getText(`media-teo-${index}`),
-                rec: getText(`needed-rec-teo-${index}`),
-                status: subject.hasPratica ? getText(`status-teo-${index}`) : globalStatus
-            });
-
-            if (subject.hasPratica) {
-                let b1Pratica = subject.b1_prac !== "" && subject.b1_prac !== undefined ? parseFloat(subject.b1_prac).toFixed(2) : "-";
-                let b2Pratica = getInputValue(`b2-prac-${index}`);
-
-                if (subject.isSemio) {
-                    const vhab1 = subject.b1_vhab !== "" && subject.b1_vhab !== undefined ? parseFloat(subject.b1_vhab).toFixed(2) : "-";
-                    const vhab2 = getInputValue(`b2-vhab-${index}`);
-                    b1Pratica = `Prática: ${b1Pratica} / VHAB: ${vhab1}`;
-                    b2Pratica = `Prática: ${b2Pratica} / VHAB: ${vhab2}`;
-                }
-
-                rows.push({
-                    eixo: subject.isSemio ? "Prático + VHAB" : "Prático",
-                    b1: b1Pratica,
-                    b2: b2Pratica,
-                    precisa: getText(`needed-b2-prac-${index}`),
-                    media: getText(`media-prac-${index}`),
-                    rec: getText(`needed-rec-prac-${index}`),
-                    status: getText(`status-prac-${index}`)
-                });
-            }
-
-            rows.forEach((row, rowIndex) => {
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    ${rowIndex === 0 ? `<td rowspan="${rows.length}"><strong>${subjectName}</strong><br><span style="color:#6b7280;font-size:8.5px;">${globalStatus}</span></td>` : ""}
-                    <td>${row.eixo}</td>
-                    <td>${row.b1}</td>
-                    <td>${row.b2}</td>
-                    <td>${row.precisa}</td>
-                    <td><strong>${row.media}</strong></td>
-                    <td>${row.rec}</td>
-                    <td><span class="pdf-status ${getStatusClass(row.status)}">${row.status || "A avaliar"}</span></td>
-                `;
-                tbody.appendChild(tr);
-            });
-        });
-    }
-
-    function exportarPDF() {
-        buildPdfReport();
-        window.print();
     }
 
     function processTrackCalculations(b1, b2, target, neededB2El, mediaEl, neededRecEl, statusEl) {
         if (isNaN(b1)) {
             neededB2El.textContent = "-"; mediaEl.textContent = "-"; neededRecEl.textContent = "-";
-            if(statusEl) { statusEl.textContent = ""; statusEl.className = "status-badge"; }
-            return { m: NaN, approved: false, activeSimulation: false };
+            statusEl.textContent = ""; statusEl.className = "status-badge";
+            return { m: NaN, approved: false };
         }
 
+        // Quanto precisa no 2º Bimestre para atingir a meta direta
         let neededB2 = (target * 2) - b1;
         if (neededB2 <= 0) { neededB2El.textContent = "0.00"; neededB2El.style.color = "var(--success)"; }
         else if (neededB2 > 10) { neededB2El.textContent = "10.00+ (Rec)"; neededB2El.style.color = "var(--danger)"; }
         else { neededB2El.textContent = neededB2.toFixed(2); neededB2El.style.color = "var(--text)"; }
 
-        if (isNaN(b2)) {
-            mediaEl.textContent = "-";
-            neededRecEl.textContent = "Preencha o 2ºB";
-            neededRecEl.style.color = "var(--text-secondary)";
-
-            if (statusEl) {
-                statusEl.textContent = "";
-                statusEl.className = "status-badge";
-            }
-
-            return {
-                m: NaN,
-                approved: false,
-                activeSimulation: false
-            };
-        }
-
-        let projectedMedia = (b1 + b2) / 2;
+        let valB2 = isNaN(b2) ? 0 : b2;
+        let projectedMedia = (b1 + valB2) / 2;
         mediaEl.textContent = projectedMedia.toFixed(2);
 
+        // Regra informada: (Média + Rec) / 2 >= 6 => Rec >= 12 - Média
         let neededRec = 12 - projectedMedia;
         let isApproved = projectedMedia >= target && !isNaN(b2);
 
-        if (statusEl) {
-            if (isApproved) {
-                statusEl.textContent = "OK"; statusEl.className = "status-badge status-aprovado";
-                neededRecEl.textContent = "Não precisa"; neededRecEl.style.color = "var(--success)";
-            } else {
-                statusEl.textContent = "REC"; statusEl.className = "status-badge status-recuperacao";
-                if (neededRec <= 0) { neededRecEl.textContent = "0.00"; neededRecEl.style.color = "var(--success)"; }
-                else if (neededRec > 10) { 
-                    neededRecEl.textContent = "Inviável"; neededRecEl.style.color = "var(--danger)"; 
-                    statusEl.textContent = "REP"; statusEl.className = "status-badge status-reprovado";
-                }
-                else { neededRecEl.textContent = neededRec.toFixed(2); neededRecEl.style.color = "var(--warning)"; }
+        if (isApproved) {
+            statusEl.textContent = "OK"; statusEl.className = "status-badge status-aprovado";
+            neededRecEl.textContent = "Não precisa"; neededRecEl.style.color = "var(--success)";
+        } else {
+            statusEl.textContent = "REC"; statusEl.className = "status-badge status-recuperacao";
+            if (neededRec <= 0) { neededRecEl.textContent = "0.00"; neededRecEl.style.color = "var(--success)"; }
+            else if (neededRec > 10) { 
+                neededRecEl.textContent = "Inviável"; neededRecEl.style.color = "var(--danger)"; 
+                statusEl.textContent = "REP"; statusEl.className = "status-badge status-reprovado";
             }
+            else { neededRecEl.textContent = neededRec.toFixed(2); neededRecEl.style.color = "var(--warning)"; }
         }
         return { m: projectedMedia, approved: isApproved, activeSimulation: !isNaN(b2) };
     }
 
     function calculateAll() {
+        targetMedia = parseFloat(document.getElementById('target-media').value) || 7.0;
+        saveToStorage();
+
         subjects.forEach((subject, index) => {
-            let b1TeoFinal = NaN;
-            let b2TeoFinal = NaN;
-            let activeTeoSim = false;
-
-            if (subject.isSemio) {
-                // Semiologia: teoria somente com prova teórica
-                let t1 = parseFloat(subject.b1_teo);
-                if (!isNaN(t1)) b1TeoFinal = t1;
-
-                let t2 = parseFloat(document.getElementById(`b2-teo-${index}`).value);
-                if (!isNaN(t2)) {
-                    b2TeoFinal = t2;
-                    activeTeoSim = true;
-                }
-            } else {
-                // Anatomia, Histologia e demais teóricas
-                let b1 = parseFloat(subject.b1_teo);
-                if (!isNaN(b1)) b1TeoFinal = b1;
-
-                let b2 = parseFloat(document.getElementById(`b2-teo-${index}`).value);
-                if (!isNaN(b2)) { b2TeoFinal = b2; activeTeoSim = true; }
-            }
-
+            const b1Teo = parseFloat(subject.b1_teo);
+            const b2Teo = parseFloat(document.getElementById(`b2-teo-${index}`).value);
+            
             const neededB2TeoEl = document.getElementById(`needed-b2-teo-${index}`);
             const mediaTeoEl = document.getElementById(`media-teo-${index}`);
             const neededRecTeoEl = document.getElementById(`needed-rec-teo-${index}`);
             const statusGlobalEl = document.getElementById(`status-global-${index}`);
+            
             let statusTeoEl = subject.hasPratica ? document.getElementById(`status-teo-${index}`) : statusGlobalEl;
 
-            let resTeo = processTrackCalculations(b1TeoFinal, b2TeoFinal, targetMedia, neededB2TeoEl, mediaTeoEl, neededRecTeoEl, statusTeoEl);
-            if (subject.isSemio) resTeo.activeSimulation = activeTeoSim; // Força flag caso digitem apenas um campo em Semio
+            // Executa os cálculos matemáticos do Eixo Teórico
+            let resTeo = processTrackCalculations(b1Teo, b2Teo, targetMedia, neededB2TeoEl, mediaTeoEl, neededRecTeoEl, statusTeoEl);
 
             if (subject.hasPratica) {
-                let b1Prac = parseFloat(subject.b1_prac);
-                let b2Prac = parseFloat(document.getElementById(`b2-prac-${index}`).value);
-
-                if (subject.isSemio) {
-                    // Semiologia: eixo prático = 70% prova prática + 30% VHAB
-                    const vhab1 = parseFloat(subject.b1_vhab);
-                    const vhab2Input = document.getElementById(`b2-vhab-${index}`);
-                    const vhab2 = vhab2Input ? parseFloat(vhab2Input.value) : NaN;
-
-                    if (!isNaN(b1Prac) && !isNaN(vhab1)) {
-                        b1Prac = (b1Prac * 0.7) + (vhab1 * 0.3);
-                    } else {
-                        b1Prac = NaN;
-                    }
-
-                    if (!isNaN(b2Prac) || !isNaN(vhab2)) {
-                        b2Prac = ((isNaN(b2Prac) ? 0 : b2Prac) * 0.7) + ((isNaN(vhab2) ? 0 : vhab2) * 0.3);
-                    }
-                }
+                const b1Prac = parseFloat(subject.b1_prac);
+                const b2Prac = parseFloat(document.getElementById(`b2-prac-${index}`).value);
                 
                 const neededB2PracEl = document.getElementById(`needed-b2-prac-${index}`);
                 const mediaPracEl = document.getElementById(`media-prac-${index}`);
@@ -1070,12 +459,24 @@
                 const statusPracEl = document.getElementById(`status-prac-${index}`);
                 const combinedEl = document.getElementById(`combined-score-${index}`);
 
+                // Executa os cálculos matemáticos do Eixo Prático
                 let resPrac = processTrackCalculations(b1Prac, b2Prac, targetMedia, neededB2PracEl, mediaPracEl, neededRecPracEl, statusPracEl);
 
-                if (!isNaN(b1TeoFinal) && !isNaN(b1Prac)) {
+                // Determina o status geral do Card combinando ambos os caminhos
+                if (!isNaN(b1Teo) && !isNaN(b1Prac)) {
                     let hasAnySimulation = resTeo.activeSimulation || resPrac.activeSimulation;
-                    let finalCombined = (resTeo.m + resPrac.m) / 2;
-                    combinedEl.innerHTML = `Média Geral (Média Teo + Média Prac) / 2: <strong>${finalCombined.toFixed(2)}</strong>`;
+                    
+                    // Cálculo informativo do peso final da disciplina
+                    let finalCombined = 0;
+                    if (subject.isSemio) {
+                        // Regra Semiologia: 70% Teoria + 30% Prática (VHAB)
+                        finalCombined = (resTeo.m * 0.7) + (resPrac.m * 0.3);
+                        combinedEl.innerHTML = `Média Ponderada Final (70% Teo / 30% VHAB): <strong>${finalCombined.toFixed(2)}</strong>`;
+                    } else {
+                        // Outras matérias práticas: Média simples aritmética
+                        finalCombined = (resTeo.m + resPrac.m) / 2;
+                        combinedEl.innerHTML = `Média Combinada da Disciplina: <strong>${finalCombined.toFixed(2)}</strong>`;
+                    }
 
                     if (resTeo.approved && resPrac.approved) {
                         statusGlobalEl.textContent = "Aprovado";
@@ -1090,6 +491,7 @@
                         }
                         statusGlobalEl.className = "status-badge status-recuperacao";
                         
+                        // Tratamento de reprovações extremas por nota inviável (>10)
                         if ((12 - resTeo.m > 10 && resTeo.activeSimulation) || (12 - resPrac.m > 10 && resPrac.activeSimulation)) {
                             statusGlobalEl.textContent = "Reprovado";
                             statusGlobalEl.className = "status-badge status-reprovado";
@@ -1104,8 +506,8 @@
                     combinedEl.textContent = "";
                 }
             } else {
-                // Atualizações de status simples para eixos não práticos
-                if (!isNaN(b1TeoFinal)) {
+                // Atualização de status para matérias puramente teóricas
+                if (!isNaN(b1Teo)) {
                     if (resTeo.approved) {
                         statusGlobalEl.textContent = "Aprovado";
                         statusGlobalEl.className = "status-badge status-aprovado";
@@ -1128,6 +530,7 @@
         });
     }
 
+    // Inicialização da interface
     renderSubjects();
     calculateAll();
 </script>
