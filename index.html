@@ -684,7 +684,23 @@
     ];
 
     let subjects = JSON.parse(localStorage.getItem('med_subjects_v8')) || defaultSubjects;
-    const targetMedia = 6.75; // Aprovação direta: 13,5 pontos no semestre
+    const targetMedia = 6.75; // Aprovação direta: 13,5 pontos no semestre (que arredonda para 14)
+
+    // Função que executa estritamente as regras de arredondamento enviadas na imagem
+    function arredondarMedia(valor) {
+        if (isNaN(valor) || valor === null || valor === "") return valor;
+        let inteiro = Math.floor(valor);
+        let decimal = Math.round((valor - inteiro) * 100); // Obtém as duas casas decimais como inteiro (0 a 99)
+        
+        if (decimal >= 1 && decimal <= 24) {
+            return inteiro; // 0,01 - 0,24 -> 0,00
+        } else if (decimal >= 25 && decimal <= 74) {
+            return inteiro + 0.5; // 0,25 - 0,74 -> 0,50
+        } else if (decimal >= 75 && decimal <= 99) {
+            return inteiro + 1.0; // 0,75 - 0,99 -> 1,00
+        }
+        return inteiro; // Caso seja exatamente 0,00
+    }
 
     function saveToStorage() {
         localStorage.setItem('med_subjects_v8', JSON.stringify(subjects));
@@ -982,9 +998,12 @@
         }
 
         let projectedMedia = (b1 + b2) / 2;
+        projectedMedia = arredondarMedia(projectedMedia); // APLICA O ARREDONDAMENTO DA IMAGEM NA MÉDIA
         mediaEl.textContent = projectedMedia.toFixed(2);
 
-        let neededRec = 12 - projectedMedia;
+        // Com o arredondamento na média, se ela bater 5.75 vira 6.00. 
+        // A nota necessária mínima real na recuperação passa a ser calculada sobre a meta interna de 11.50 pontos acumulados.
+        let neededRec = 11.5 - projectedMedia;
         let isApproved = projectedMedia >= target && !isNaN(b2);
 
         if (statusEl) {
@@ -1067,6 +1086,7 @@
                 if (!isNaN(b1TeoFinal) && !isNaN(b1Prac)) {
                     let hasAnySimulation = resTeo.activeSimulation || resPrac.activeSimulation;
                     let finalCombined = (resTeo.m + resPrac.m) / 2;
+                    finalCombined = arredondarMedia(finalCombined); // APLICA O ARREDONDAMENTO DA IMAGEM NA MÉDIA GERAL
                     combinedEl.innerHTML = `Média Geral (Média Teo + Média Prac) / 2: <strong>${finalCombined.toFixed(2)}</strong>`;
 
                     if (resTeo.approved && resPrac.approved) {
@@ -1082,7 +1102,8 @@
                         }
                         statusGlobalEl.className = "status-badge status-recuperacao";
                         
-                        if ((12 - resTeo.m > 10 && resTeo.activeSimulation) || (12 - resPrac.m > 10 && resPrac.activeSimulation)) {
+                        // Validação de teto de reprovação imediata ajustado conforme limite 11.5
+                        if ((11.5 - resTeo.m > 10 && resTeo.activeSimulation) || (11.5 - resPrac.m > 10 && resPrac.activeSimulation)) {
                             statusGlobalEl.textContent = "Reprovado";
                             statusGlobalEl.className = "status-badge status-reprovado";
                         }
@@ -1103,7 +1124,8 @@
                     } else if (resTeo.activeSimulation) {
                         statusGlobalEl.textContent = "Recuperação";
                         statusGlobalEl.className = "status-badge status-recuperacao";
-                        if (12 - resTeo.m > 10) {
+                        // Validação de teto de reprovação imediata ajustado conforme limite 11.5
+                        if (11.5 - resTeo.m > 10) {
                             statusGlobalEl.textContent = "Reprovado";
                             statusGlobalEl.className = "status-badge status-reprovado";
                         }
